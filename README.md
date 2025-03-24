@@ -413,12 +413,12 @@ local: Max IoU=0.8381
 ### **Methodology**
  The U-Net architecture is designed for pixel-wise classification and is widely used in biomedical and general image segmentation tasks. The implementation includes data preprocessing, model architecture, training, evaluation, and prediction steps.
 
-#### **Data collection and preprocessing 
+#### **Data collection and preprocessing** 
 - *Dateset*: The  Masked Face Segmentation Dataset (MFSD) with ground truth face masks has been used here.
   - The folders face_crop and face_crop_segmentation have been used here. The folder face_crop has the images of people wearing 
 masks and the folder face_crop_segmentation has the segmented mask outputs.
 
-#### ** Data generator::
+#### ** Data generator**
 A custom data generator class (DataGenerator) was implemented using Keras' Sequence API to efficiently load images and corresponding masks in batches, reducing memory consumption.
 ** Preprocessing steps:**
 - Read images and masks from specified directories.
@@ -429,35 +429,36 @@ A custom data generator class (DataGenerator) was implemented using Keras' Seque
 
 - Expand dimensions for grayscale masks to maintain compatibility with the CNN.
 
-#### ** Model architechture**
+#### ** Model architecture**
 The model follows a U-Net architecture, consisting of an encoder, bottleneck, and decoder, with modifications such as LeakyReLU activation, batch normalization, and dropout to enhance performance.
- 3.1 Encoder (Feature Extraction)
+- 3.1 Encoder (Feature Extraction)
 Each encoder block consists of:
-✅ Two convolutional layers (3×3 kernel) to extract hierarchical features.
-✅ LeakyReLU activation to prevent vanishing gradients.
-✅ Batch Normalization for stable training.
-✅ MaxPooling (2×2) to downsample feature maps.
-✅ Dropout (0.3) to prevent overfitting.3.2 Bottleneck Layer
+- Two convolutional layers (3×3 kernel) to extract hierarchical features.
+- LeakyReLU activation to prevent vanishing gradients.
+- Batch Normalization for stable training.
+- MaxPooling (2×2) to downsample feature maps.
+- Dropout (0.3) to prevent overfitting.3.2 Bottleneck Layer
 
- 3.2 Bottleneck (Deepest Layer)
+- 3.2 Bottleneck (Deepest Layer)
 At the bottom of the U-Net, we introduce a bottleneck layer
 Two convolutional layers with larger (5×5) filters to capture deeper features.
 
-3.3 Decoder (Upsampling & Skip Connections)
-The decoder gradually reconstructs the image, using: ✅ UpSampling2D (instead of transposed convolution) to restore resolution.
-✅ Concatenation with skip connections to combine high-resolution details from the encoder.
-✅ Final output layer (1×1 Conv with Sigmoid activation) for binary segmentation.
+- 3.3 Decoder (Upsampling & Skip Connections)
+The decoder gradually reconstructs the image, using: 
+- UpSampling2D (instead of transposed convolution) to restore resolution.
+- Concatenation with skip connections to combine high-resolution details from the encoder.
+- Final output layer (1×1 Conv with Sigmoid activation) for binary segmentation.
 
 #### **Model Compilation and Training**
 The model is compiled using:
 
 - Adam Optimizer: Adaptive learning for better convergence.
-✅ Binary Crossentropy Loss: Since it's a binary segmentation task (foreground vs. background).
-✅ Accuracy Metric: Measures pixel-wise classification accuracy.
+- Binary Crossentropy Loss: Since it's a binary segmentation task (foreground vs. background).
+- Accuracy Metric: Measures pixel-wise classification accuracy.
 
 The model is trained using:
 Uses the data generator for efficient training.
-✅ Runs for 7 epochs (can be increased for better performance).
+- Runs for 7 epochs (can be increased for better performance).
 
 
 #### **Final output**
