@@ -131,7 +131,7 @@ def local_thresholding(gray, window_size=1001):
     binary = (gray > thresh_sauvola).astype(np.uint8) * 255
     return binary
 
-def visualise_segmentation(face_path, gray, segmentation, ground_truth):
+def visualise_segmentation(face_path, gray, segmentation, ground_truth, method):
     image = cv2.imread(face_path)
     truth = cv2.imread(ground_truth)
     plt.figure(figsize=(18, 10))
@@ -152,7 +152,12 @@ def visualise_segmentation(face_path, gray, segmentation, ground_truth):
     plt.imshow(truth)
     plt.title('Ground_truth')
 
-    plt.show()
+    # plt.show()
+    output_dir = './segmentation_results'
+    os.makedirs(output_dir, exist_ok=True)
+    output_path = os.path.join(output_dir, f'{os.path.basename(face_path)}_{method}.png')
+    plt.savefig(output_path)
+    plt.close()
 
 def calculate_metrics(segmentation, ground_truth_path):
     ground_truth = cv2.imread(ground_truth_path, 0)
@@ -179,19 +184,19 @@ def main():
     for face_filename in os.listdir(input_path):
         face_path = os.path.join(input_path, face_filename)
         ground_truth = os.path.join(ground_truth_path, face_filename)
-        if (i % 250) == 0:
+        if (i % 25) == 0:
             if os.path.isfile(face_path) and os.path.isfile(ground_truth):
                 for method in methods:
                     gray, segmentation = apply_segmentation(face_path, method)
                     iou, f1, accuracy, dice_score, jaccard = calculate_metrics(segmentation, ground_truth)
-                    print(f"{face_filename} {method}: IoU={iou:.4f}, F1={f1:.4f}, Accuracy={accuracy:.4f}, Dice={dice_score:.4f}, Jaccard={jaccard:.4f}")
+                    # print(f"{face_filename} {method}: IoU={iou:.4f}, F1={f1:.4f}, Accuracy={accuracy:.4f}, Dice={dice_score:.4f}, Jaccard={jaccard:.4f}")
 
                     metrics[method]["iou"].append(iou)
                     metrics[method]["f1"].append(f1)
                     metrics[method]["accuracy"].append(accuracy)
                     metrics[method]["dice"].append(dice_score)
                     metrics[method]["jaccard"].append(jaccard)
-                    visualise_segmentation(face_path, gray, segmentation, ground_truth)
+                    # visualise_segmentation(face_path, gray, segmentation, ground_truth, method)
         i = i + 1
 
     print("\nAverage Metrics for each Method:")
