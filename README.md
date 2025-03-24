@@ -418,36 +418,36 @@ local: Max IoU=0.8381
   - The folders face_crop and face_crop_segmentation have been used here. The folder face_crop has the images of people wearing 
 masks and the folder face_crop_segmentation has the segmented mask outputs.
 
-#### ** Data generator**
+#### **Data generator**
 A custom data generator class (DataGenerator) was implemented using Keras' Sequence API to efficiently load images and corresponding masks in batches, reducing memory consumption.
 ** Preprocessing steps:**
 - Read images and masks from specified directories.
 
-- Resize images and masks to a fixed shape (128, 128).
+- Resize images and masks to a fixed shape (128, 128) .
 
 - Normalize pixel values by scaling them to [0,1].
 
 - Expand dimensions for grayscale masks to maintain compatibility with the CNN.
 
-#### ** Model architecture**
+#### **Model architecture**
 The model follows a U-Net architecture, consisting of an encoder, bottleneck, and decoder, with modifications such as LeakyReLU activation, batch normalization, and dropout to enhance performance.
-- 3.1 Encoder (Feature Extraction)
-Each encoder block consists of:
-- Two convolutional layers (3×3 kernel) to extract hierarchical features.
-- LeakyReLU activation to prevent vanishing gradients.
-- Batch Normalization for stable training.
-- MaxPooling (2×2) to downsample feature maps.
-- Dropout (0.3) to prevent overfitting.3.2 Bottleneck Layer
+- **Encoder (Feature Extraction)**
+  Each encoder block consists of:
+  - Two convolutional layers (3×3 kernel) to extract hierarchical features.
+  - LeakyReLU activation to prevent vanishing gradients.
+  - Batch Normalization for stable training.
+  - MaxPooling (2×2) to downsample feature maps.
+  - Dropout (0.3) to prevent overfitting.
 
-- 3.2 Bottleneck (Deepest Layer)
+- **Bottleneck (Deepest Layer)**
 At the bottom of the U-Net, we introduce a bottleneck layer
 Two convolutional layers with larger (5×5) filters to capture deeper features.
 
-- 3.3 Decoder (Upsampling & Skip Connections)
-The decoder gradually reconstructs the image, using: 
-- UpSampling2D (instead of transposed convolution) to restore resolution.
-- Concatenation with skip connections to combine high-resolution details from the encoder.
-- Final output layer (1×1 Conv with Sigmoid activation) for binary segmentation.
+- **Decoder (Upsampling & Skip Connections)**
+  The decoder gradually reconstructs the image, using: 
+  - UpSampling2D (instead of transposed convolution) to restore resolution.
+  - Concatenation with skip connections to combine high-resolution details from the encoder.
+  - Final output layer (1×1 Conv with Sigmoid activation) for binary segmentation.
 
 #### **Model Compilation and Training**
 The model is compiled using:
@@ -459,12 +459,16 @@ The model is compiled using:
 The model is trained using:
 Uses the data generator for efficient training.
 - Runs for 7 epochs (can be increased for better performance).
+- Learning rate = 0.0001
+- Training samples per batch = 16.
+- Loss function - Binary cross entropy.
+- IoU threshold = 0.5
 
 
 #### **Final output**
 
-U-Net Mean IoU: 0.9206
-U-Net Mean Dice Score: 0.9547
+- U-Net Mean IoU: 0.9206
+- U-Net Mean Dice Score: 0.9547
 
 ## Dependencies and Run Instructions
 
