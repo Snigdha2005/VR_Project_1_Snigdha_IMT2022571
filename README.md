@@ -39,9 +39,9 @@ MSFD
     └── img
 ```
 
-### **Methodology**
+## **Task A**
 
-Task A:
+### **Methodology**
 
 #### **Dataset Loading and Preprocessing**
 - The dataset consists of images of faces categorized as "with mask" and "without mask."
@@ -100,7 +100,7 @@ Task A:
   - **Classification Report**: Provides metrics like precision, recall, and F1-score for both classes.
   - **Confusion Matrix**: Visualized using `seaborn.heatmap()` to observe misclassifications.
 
-#### **Results and Observations**
+### **Results and Observations**
 
 - **SVM Performance**: The SVM classifier achieved an accuracy of **93.04%**. Precision and recall scores for both classes were balanced, indicating reliable classification performance. The classifier performed well for both mask and no-mask cases.
   
@@ -114,7 +114,9 @@ Task A:
 
 These findings suggest that MLP may be a better choice when the primary goal is to minimize false negatives in mask detection scenarios.
 
-Task B:
+## **Task B**
+
+### **Methodology**
 
 #### **1. Data Collection and Preprocessing**
 - **Dataset**: The dataset consists of images categorized into two classes: `with_mask` and `without_mask`.
@@ -159,14 +161,14 @@ Four sets of hyperparameters were experimented with:
 | 3      | Sigmoid    | SGD       | 0.001         | 32         |
 | 4      | Tanh       | Adam      | 0.001         | 32         |
 
-### **5. Training and Evaluation**
+#### **5. Training and Evaluation**
 - Each model was trained for **10 epochs** using the selected hyperparameters.
 - The training used `tf.data.Dataset` for efficient data loading and batch processing.
 - Accuracy and Loss metrics were plotted for both training and validation.
 - The model with the highest validation accuracy was selected for further testing.
 - Final evaluation was conducted using the test dataset, and predictions were compared with ground truth using a **classification report** and a **confusion matrix**.
 
-#### Observations and Results
+### **Observations and Results**
 
 1. **Training Performance:**
    - Model 1 with sigmoid activation, Adam optimizer, and a learning rate of 0.001 achieved the highest accuracy with rapid convergence.
@@ -202,7 +204,7 @@ Four sets of hyperparameters were experimented with:
   - The consistent performance across training, validation, and test sets confirms the model's generalizability and robustness.
   - Further improvements could involve experimenting with additional regularization techniques or fine-tuning hyperparameters further.
 
-### **Comparison of Task A and Task B Results and Observations**
+## **Comparison of Task A and Task B Results and Observations**
 
 #### **1. Accuracy**  
 - **Task A (SVM)**: 93.04%  
