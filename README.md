@@ -470,7 +470,8 @@ Uses the data generator for efficient training.
 - U-Net Mean IoU: 0.9206
 - U-Net Mean Dice Score: 0.9547
 - output of a prediction of an example image.
-![WhatsApp Image 2025-03-24 at 20 18 06_a4e69a3d](https://github.com/user-attachments/assets/fe02d076-a874-48f7-acf2-de37eb073a35)
+  
+ ![WhatsApp Image 2025-03-24 at 20 18 06_a4e69a3d](https://github.com/user-attachments/assets/fe02d076-a874-48f7-acf2-de37eb073a35)
 
 
 ## **Comparision between Traditional methods and U-net**
