@@ -470,6 +470,22 @@ Uses the data generator for efficient training.
 - U-Net Mean IoU: 0.9206
 - U-Net Mean Dice Score: 0.9547
 
+## **Comparision between Traditional methods and U-net**
+- U-Net achieves state-of-the-art performance in image segmentation, with a Mean IoU of 0.9206 and Dice Score of 0.9547, far surpassing traditional methods.
+- Traditional segmentation methods struggle with complex backgrounds, while U-Net can learn context and structure from training data.
+- Local Thresholding (Sauvola) achieved the best results among traditional methods, with an IoU of 0.3299, but is still far behind U-Net.
+- Traditional segmentation techniques (e.g., Otsu's Thresholding, Watershed, K-Means) are useful for simple images but struggle in complex backgrounds.
+- Edge detection techniques like Canny and Sobel perform poorly, as they do not segment objects but only detect boundaries.
+  
+ | **Aspect** | **U-Net (Deep Learning)** | **Traditional Segmentation Methods** |
+|------------|----------------------|---------------------------------|
+| **Feature Extraction** | Learns hierarchical **spatial and texture features** | Uses **pixel intensity variations only** |
+| **Adaptability** | Generalizes well to **new images** | Works only for **specific contrast levels** |
+| **Complex Backgrounds** | Can **differentiate foreground and background** effectively | Fails when contrast is low |
+| **Edge Preservation** | Uses **skip connections** to retain details | Edge detection loses important structures |
+| **Noise Handling** | Robust to **noise and lighting variations** | **Sensitive to noise**, requiring preprocessing |
+| **Performance on Small Objects** | Detects **fine details accurately** | Often **fails for small or unclear objects** |
+
 ## Dependencies and Run Instructions
 
 ### Requirements
